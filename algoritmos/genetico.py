@@ -140,7 +140,7 @@ class AlgoritmoGenetico:
                 nueva_poblacion.append(hijo)
                 
             self.poblacion = nueva_poblacion
-            print(f"Generación {gen+1} | Mejor Fitness: {mejor_bacteria.fitness:.2f}")
+            #print(f"Generación {gen+1} | Mejor Fitness: {mejor_bacteria.fitness:.2f}")
 
         return self.poblacion[0] # Retorna la bacteria con la ruta más óptima
 

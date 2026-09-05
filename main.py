@@ -1,7 +1,8 @@
 #ejecutar python3 main.py
 import os
+import time
+from simulacion import ejecutar_simulacion_genetica
 from entorno.grilla import Mapa
-from algoritmos.genetico import AlgoritmoGenetico
 
 def limpiar_pantalla():
     #limpiar la consola
@@ -78,7 +79,7 @@ def main():
         
         opcion = input("Seleccione un modo de ejecución: ")
 
-        # Estructura match-case (El equivalente exacto a switch-case en C)
+        # poner los case en simulacion.py y llamar el metodo aqui
         match opcion:
             case '1':
                 print("\n[!] Ejecutando BFS... (Pendiente de implementar)")
@@ -97,19 +98,7 @@ def main():
                 # logica_greedy(mapa_actual, inicio, objetivo)
             
             case '5':
-                print("\n[*] Iniciando simulación de colonia bacteriana (Genético)...")
-                # Instanciamos el algoritmo
-                genetico = AlgoritmoGenetico(mapa_actual, inicio, objetivo, tam_poblacion=100)
-                
-                # Ejecutamos la evolución
-                mejor_ruta = genetico.evolucionar(generaciones=500)
-                
-                print(f"\n[+] Evolución terminada.")
-                print(f"Fitness de la mejor ruta: {mejor_ruta.fitness:.2f}")
-                print(f"Secuencia de ADN (movimientos): {mejor_ruta.adn}")
-                
-                # Visualizamos la ruta en el mapa
-                #genetico.mostrar_ruta(mejor_ruta)
+               ejecutar_simulacion_genetica(mapa_actual)
             case '6':
                 print("\n[*] Mapa actual:")
                 mapa_actual.mostrar_mapa()
