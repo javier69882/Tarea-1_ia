@@ -17,15 +17,15 @@ class Mapa:
     def _generar_entorno_basico(self):
         plantilla = [
             ['m', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm'],
-            ['m', 'd', 'd', 'd', 'm', 'd', 'd', 'm', 'd', 'm'],
+            ['m', 's', 'd', 'd', 'm', 'd', 'd', 'm', 'd', 'm'], # 's' (Inicio) en (1, 1)
             ['m', 'm', 'm', 'd', 'm', 'd', 'd', 'm', 'd', 'm'],
             ['m', 'd', 'd', 'd', 'm', 'd', 'd', 'm', 'd', 'm'],
             ['m', 'd', 'd', 'd', 'm', 'm', 'd', 'm', 'd', 'm'],
             ['m', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'm'],
             ['m', 'm', 'm', 'm', 'd', 'd', 'd', 'd', 'd', 'm'],
             ['m', 'd', 'd', 'm', 'd', 'm', 'm', 'm', 'm', 'm'],
-            ['m', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'm'],
-            ['m', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm'] 
+            ['m', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'g', 'm'], # 'g' (Salida) en (8, 8)
+            ['m', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm']
         ]
         
         # Cargamos la plantilla
