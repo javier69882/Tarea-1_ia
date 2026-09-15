@@ -1,12 +1,13 @@
-#ejecutar python3 main.py
 import os
 import time
+from benchmark import ejecutar_benchmark
 from simulacion import ejecutar_simulacion_genetica
 from entorno.grilla import Mapa
 
 def limpiar_pantalla():
     #limpiar la consola
     os.system('cls' if os.name == 'nt' else 'clear')
+
 def visualizar_ruta(mapa, inicio, objetivo, adn):
     fila_actual, col_actual = inicio
     movimientos = {
@@ -50,6 +51,7 @@ def visualizar_ruta(mapa, inicio, objetivo, adn):
     # Limpiamos el mapa restaurando los estados originales
     for f, c, estado_original in historial_cambios:
         mapa.matriz[f][c].estado = estado_original
+
 def main():
     # Instanciamos el entorno de pruebas una sola vez al inicio
     mapa_actual = Mapa(filas=10, columnas=10)
@@ -74,12 +76,22 @@ def main():
         print("   6. Mostrar estado actual del mapa")
         print("   7. Simular propagación del fuego (1 turno)")
         print("   8. Reiniciar mapa al estado original")
+        print("   9. Ejecutar Benchmark Estadístico (150 iteraciones)")
         print("\n   0. Salir")
         print("="*40)
         
         opcion = input("Seleccione un modo de ejecución: ")
 
-        # poner los case en simulacion.py y llamar el metodo aqui
+     
+        tipo_mapa = 1 
+        if opcion in ['1', '2', '3', '4', '5']:
+            print("\nSeleccione el entorno de pruebas:")
+            print("  1. Cuello de botella (Alta densidad)")
+            print("  2. Laberinto corporativo (Densidad media)")
+            print("  3. Dispersión abierta (Baja densidad)")
+            seleccion_mapa = input("Opción (1-3): ")
+            tipo_mapa = int(seleccion_mapa) if seleccion_mapa in ['1', '2', '3'] else 1
+  
         match opcion:
             case '1':
                 print("\n[!] Ejecutando BFS... (Pendiente de implementar)")
@@ -91,14 +103,23 @@ def main():
             
             case '3':
                 print("\n[!] Ejecutando A*... (Pendiente de implementar)")
-                # logica_astar(mapa_actual, inicio, objetivo)
+                # logica_A*(mapa_actual, inicio, objetivo)
             
             case '4':
                 print("\n[!] Ejecutando Greedy... (Pendiente de implementar)")
                 # logica_greedy(mapa_actual, inicio, objetivo)
             
             case '5':
-               ejecutar_simulacion_genetica(mapa_actual)
+                mapa_limpio = Mapa(tipo_mapa=tipo_mapa, filas=15, columnas=15)
+                historial = ejecutar_simulacion_genetica(mapa_limpio)
+                
+                # Le preguntamos al usuario si quiere ver la repetición
+                if historial:
+                    print("\n" + "-"*40)
+                    ver = input("¿Deseas reproducir la simulación con Pygame? (s/n): ")
+                    if ver.lower() == 's':
+                        import visualizador
+                        visualizador.reproducir(historial)
             case '6':
                 print("\n[*] Mapa actual:")
                 mapa_actual.mostrar_mapa()
@@ -112,13 +133,23 @@ def main():
                 print("\n[*] Reiniciando mapa...")
                 mapa_actual = Mapa(filas=10, columnas=10)
                 print("Mapa reiniciado a su estado original.")
+
+            case '9':
+                print("\n[*] Ejecutando Benchmark Estadístico completo (3 Mapas)...")
+                
+                
+                for mapa_id in [1, 2, 3]:
+                    print(f"\n--- INICIANDO MAPA {mapa_id} ---")
+                    ejecutar_benchmark("Genetico", ejecutar_simulacion_genetica, mapa_id, iteraciones=150)
+                    
+                print("\n[+] Benchmarks de los 3 mapas completados exitosamente")
             
             case '0':
-                print("\nSaliendo del simulador... ¡Éxito en la tarea!")
+                print("\nSaliendo del simulador... ")
                 break
                 
             case _:
-                # El equivalent a 'default' en C
+                
                 print("\n[x] Opción no válida. Intente nuevamente.")
         
         input("\nPresione Enter para continuar...")

@@ -1,0 +1,11 @@
+--- RESUMEN ESTADÍSTICO (Genetico - Mapa 3) ---
+Iteraciones completadas con éxito: 149 de 150
+
+METRICAS DE SUPERVIVENCIA:
+- Supervivencia media: 92.57%
+
+ESTADISTICOS DE TIEMPO (TURNOS):
+- Media: 29.78 turnos
+- Desviación estándar: 12.29
+- Valor mínimo: 20 turnos
+- Valor máximo: 119 turnos
