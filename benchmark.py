@@ -5,9 +5,9 @@ import os
 import sys
 import time
 from entorno.grilla import Mapa
-from simulacion import ejecutar_simulacion_genetica
+from simulacion.motor import ejecutar_simulacion
 
-#silencia print durante las 150 iteraciones del benchmark para no saturar la consola
+#silencia print durante las 200 iteraciones del benchmark para no saturar la consola
 class HiddenPrints:
     def __enter__(self):
         self._original_stdout = sys.stdout
@@ -37,7 +37,10 @@ def graficar_resultados(nombre, mapa, turnos, supervivencia):
     plt.savefig(f"imagenes/graficos_{nombre}_mapa{mapa}.png")
     plt.close()
 
-def ejecutar_benchmark(nombre_algoritmo, funcion_simulacion, tipo_mapa, iteraciones=200):
+def ejecutar_benchmark(nombre_algoritmo,ClaseAgente,tipo_mapa):
+
+    iteraciones=200
+
     print(f"\n[*] Iniciando Benchmark para '{nombre_algoritmo}' en Mapa {tipo_mapa} ({iteraciones} iteraciones)...")
     print("[*] Esto puede tomar un momento. Calculando...")
     
@@ -53,7 +56,7 @@ def ejecutar_benchmark(nombre_algoritmo, funcion_simulacion, tipo_mapa, iteracio
         mapa = Mapa(tipo_mapa=tipo_mapa, filas=15, columnas=15)
         
         with HiddenPrints():
-            historial = funcion_simulacion(mapa)
+            historial = ejecutar_simulacion(mapa, ClaseAgente, nombre_algoritmo)
         
         if historial:
             estado_final = historial[-1]['agentes']

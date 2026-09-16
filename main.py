@@ -1,12 +1,23 @@
 import os
 import time
 from benchmark import ejecutar_benchmark
-from simulacion import ejecutar_simulacion_genetica, ejecutar_simulacion_bfs, ejecutar_simulacion_dfs
+from simulacion.motor import ejecutar_simulacion
+from agentes.agente_bfs import AgenteBFS
+from agentes.agente_dfs import AgenteDFS
+from agentes.agente_genetico import AgenteGenetico
 from entorno.grilla import Mapa
 
 def limpiar_pantalla():
     #limpiar la consola
     os.system('cls' if os.name == 'nt' else 'clear')
+
+def preguntar_visualizacion(historial):
+    if historial:
+        print("\n" + "-"*40)
+        ver = input("¿Deseas reproducir la simulación con Pygame? (s/n): ")
+        if ver.lower() == 's':
+            import visualizador
+            visualizador.reproducir(historial)
 
 def visualizar_ruta(mapa, inicio, objetivo, adn):
     fila_actual, col_actual = inicio
@@ -85,7 +96,6 @@ def main():
         
         opcion = input("Seleccione un modo de ejecución: ")
 
-     
         tipo_mapa = 1 
         if opcion in ['1', '2', '3', '4', '5']:
             print("\nSeleccione el entorno de pruebas:")
@@ -98,45 +108,25 @@ def main():
         match opcion:
             case '1':
                 mapa_limpio = Mapa(tipo_mapa=tipo_mapa, filas=15, columnas=15)
-                historial = ejecutar_simulacion_bfs(mapa_limpio)
-                
-                if historial:
-                    print("\n" + "-"*40)
-                    ver = input("¿Deseas reproducir la simulación con Pygame? (s/n): ")
-                    if ver.lower() == 's':
-                        import visualizador
-                        visualizador.reproducir(historial)
+                historial = ejecutar_simulacion(mapa_limpio, AgenteBFS, "BFS")
+                preguntar_visualizacion(historial)
             
             case '2':
                 mapa_limpio = Mapa(tipo_mapa=tipo_mapa, filas=15, columnas=15)
-                historial = ejecutar_simulacion_dfs(mapa_limpio)
-                
-                if historial:
-                    print("\n" + "-"*40)
-                    ver = input("¿Deseas reproducir la simulación con Pygame? (s/n): ")
-                    if ver.lower() == 's':
-                        import visualizador
-                        visualizador.reproducir(historial)
+                historial = ejecutar_simulacion(mapa_limpio, AgenteDFS, "DFS")
+                preguntar_visualizacion(historial)
             
             case '3':
                 print("\n[!] Ejecutando A*... (Pendiente de implementar)")
-                # logica_A*(mapa_actual, inicio, objetivo)
             
             case '4':
                 print("\n[!] Ejecutando Greedy... (Pendiente de implementar)")
-                # logica_greedy(mapa_actual, inicio, objetivo)
             
             case '5':
                 mapa_limpio = Mapa(tipo_mapa=tipo_mapa, filas=15, columnas=15)
-                historial = ejecutar_simulacion_genetica(mapa_limpio)
-                
-                
-                if historial:
-                    print("\n" + "-"*40)
-                    ver = input("¿Deseas reproducir la simulación con Pygame? (s/n): ")
-                    if ver.lower() == 's':
-                        import visualizador
-                        visualizador.reproducir(historial)
+                historial = ejecutar_simulacion(mapa_limpio, AgenteGenetico, "Genetico")
+                preguntar_visualizacion(historial)
+
             case '6':
                 print("\n[*] Mapa actual:")
                 mapa_actual.mostrar_mapa()
@@ -153,27 +143,26 @@ def main():
 
             case '9':
                 print("\n[*] Ejecutando Benchmark Estadístico completo (3 Mapas)...")
-                
                 for mapa_id in [1, 2, 3]:
                     print(f"\n--- INICIANDO MAPA {mapa_id} ---")
-                    ejecutar_benchmark("Genetico", ejecutar_simulacion_genetica, mapa_id)
-                    
+                    # Pasamos la clase AgenteGenetico al benchmark
+                    ejecutar_benchmark("Genetico", AgenteGenetico, mapa_id)
                 print("\n[+] Benchmarks de los 3 mapas completados exitosamente")
 
             case '10':
                 print("\n[*] Ejecutando Benchmark Estadístico completo BFS (3 Mapas)...")
                 for mapa_id in [1, 2, 3]:
                     print(f"\n--- INICIANDO MAPA {mapa_id} ---")
-                    
-                    ejecutar_benchmark("BFS", ejecutar_simulacion_bfs, mapa_id)
+                    # Pasamos la clase AgenteBFS al benchmark
+                    ejecutar_benchmark("BFS", AgenteBFS, mapa_id)
                 print("\n[+] Benchmarks BFS de los 3 mapas completados exitosamente")
 
             case '11':
                 print("\n[*] Ejecutando Benchmark Estadístico completo DFS (3 Mapas)...")
                 for mapa_id in [1, 2, 3]:
                     print(f"\n--- INICIANDO MAPA {mapa_id} ---")
-                    
-                    ejecutar_benchmark("DFS", ejecutar_simulacion_dfs, mapa_id)
+                    # Pasamos la clase AgenteDFS al benchmark
+                    ejecutar_benchmark("DFS", AgenteDFS, mapa_id)
                 print("\n[+] Benchmarks DFS de los 3 mapas completados exitosamente")
             
             case '0':
@@ -181,7 +170,6 @@ def main():
                 break
                 
             case _:
-                
                 print("\n[x] Opción no válida. Intente nuevamente.")
         
         input("\nPresione Enter para continuar...")

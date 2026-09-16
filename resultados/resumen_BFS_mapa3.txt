@@ -2,14 +2,14 @@
 Iteraciones completadas con éxito: 200 de 200
 
 METRICAS DE RENDIMIENTO COMPUTACIONAL:
-- Tiempo total de ejecución: 1.00 segundos
-- Tiempo medio por simulación: 5.02 milisegundos
+- Tiempo total de ejecución: 0.96 segundos
+- Tiempo medio por simulación: 4.82 milisegundos
 
 METRICAS DE SUPERVIVENCIA:
-- Supervivencia media: 93.55%
+- Supervivencia media: 94.11%
 
 ESTADISTICOS DE TIEMPO (TURNOS):
-- Media: 26.12 turnos
-- Desviación estándar: 10.32
-- Valor mínimo: 18 turnos
-- Valor máximo: 104 turnos
+- Media: 25.34 turnos
+- Desviación estándar: 10.24
+- Valor mínimo: 0 turnos
+- Valor máximo: 96 turnos
