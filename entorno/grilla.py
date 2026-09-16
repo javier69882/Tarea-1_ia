@@ -76,7 +76,7 @@ class Mapa:
                 ['m','m','m','m','m','m','m','m','m','m','m','m','m','m','m']
             ]
 
-        # Cargamos la plantilla
+        # Cargo la plantilla
         for i in range(self.filas):
             for j in range(self.columnas):
                 self.matriz[i][j].estado = plantilla[i][j]
@@ -96,9 +96,9 @@ class Mapa:
                     vecinos_validos = []
                     for df, dc in direcciones:
                         nf, nc = f + df, c + dc
-                        #Si est  dentro de los l mites y es 'd' (disponible) o 'm' (muro)
+                        #Si esta  dentro de los limites y es 'd' (disponible) o 'm' (muro), o s o g
                         if 0 <= nf < self.filas and 0 <= nc < self.columnas:
-                            if self.matriz[nf][nc].estado in ['d', 'm']:
+                            if self.matriz[nf][nc].estado in ['d', 'm', 's', 'g']:
                                 vecinos_validos.append((nf, nc))
                                         
                     #Si este fuego tiene hacia donde expandirse, lo guardamos

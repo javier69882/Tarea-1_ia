@@ -1,7 +1,7 @@
 import os
 import time
 from benchmark import ejecutar_benchmark
-from simulacion import ejecutar_simulacion_genetica
+from simulacion import ejecutar_simulacion_genetica, ejecutar_simulacion_bfs, ejecutar_simulacion_dfs
 from entorno.grilla import Mapa
 
 def limpiar_pantalla():
@@ -65,18 +65,21 @@ def main():
         print(" SIMULADOR DE EVACUACIÓN - TAREA 1")
         print("="*40)
         print(" Búsqueda No Informada:")
-        print("   1. Ejecutar BFS (Búsqueda en Anchura) o otro")
-        print("   2. Ejecutar DFS (Búsqueda en Profundidad) o otro")
+        print("   1. Ejecutar BFS (Búsqueda en Anchura) ")
+        print("   2. Ejecutar DFS (Búsqueda en Profundidad) ")
         print("\n Búsqueda Informada:")
-        print("   3. Ejecutar A* (A-Estrella) o otro")
-        print("   4. Ejecutar Greedy Best-First Search o otro")
+        print("   3. Ejecutar A* (A-Estrella) ")
+        print("   4. Ejecutar Greedy Best-First Search ")
         print("\n Optimización Bioinspirada:")
         print("   5. Ejecutar Algoritmo Genético (Bacterias)")
         print("\n Herramientas de Visualización:")
         print("   6. Mostrar estado actual del mapa")
         print("   7. Simular propagación del fuego (1 turno)")
         print("   8. Reiniciar mapa al estado original")
-        print("   9. Ejecutar Benchmark Estadístico (150 iteraciones)")
+        print("\n Benchmarking:")
+        print("   9. Ejecutar Benchmark Estadístico Genético (200 iteraciones)")
+        print("  10. Ejecutar Benchmark Estadístico BFS (200 iteraciones)")
+        print("  11. Ejecutar Benchmark Estadístico DFS (200 iteraciones)")
         print("\n   0. Salir")
         print("="*40)
         
@@ -94,12 +97,26 @@ def main():
   
         match opcion:
             case '1':
-                print("\n[!] Ejecutando BFS... (Pendiente de implementar)")
-                # logica_bfs(mapa_actual, inicio)
+                mapa_limpio = Mapa(tipo_mapa=tipo_mapa, filas=15, columnas=15)
+                historial = ejecutar_simulacion_bfs(mapa_limpio)
+                
+                if historial:
+                    print("\n" + "-"*40)
+                    ver = input("¿Deseas reproducir la simulación con Pygame? (s/n): ")
+                    if ver.lower() == 's':
+                        import visualizador
+                        visualizador.reproducir(historial)
             
             case '2':
-                print("\n[!] Ejecutando DFS... (Pendiente de implementar)")
-                # logica_dfs(mapa_actual, inicio)
+                mapa_limpio = Mapa(tipo_mapa=tipo_mapa, filas=15, columnas=15)
+                historial = ejecutar_simulacion_dfs(mapa_limpio)
+                
+                if historial:
+                    print("\n" + "-"*40)
+                    ver = input("¿Deseas reproducir la simulación con Pygame? (s/n): ")
+                    if ver.lower() == 's':
+                        import visualizador
+                        visualizador.reproducir(historial)
             
             case '3':
                 print("\n[!] Ejecutando A*... (Pendiente de implementar)")
@@ -113,7 +130,7 @@ def main():
                 mapa_limpio = Mapa(tipo_mapa=tipo_mapa, filas=15, columnas=15)
                 historial = ejecutar_simulacion_genetica(mapa_limpio)
                 
-                # Le preguntamos al usuario si quiere ver la repetición
+                
                 if historial:
                     print("\n" + "-"*40)
                     ver = input("¿Deseas reproducir la simulación con Pygame? (s/n): ")
@@ -137,12 +154,27 @@ def main():
             case '9':
                 print("\n[*] Ejecutando Benchmark Estadístico completo (3 Mapas)...")
                 
-                
                 for mapa_id in [1, 2, 3]:
                     print(f"\n--- INICIANDO MAPA {mapa_id} ---")
-                    ejecutar_benchmark("Genetico", ejecutar_simulacion_genetica, mapa_id, iteraciones=150)
+                    ejecutar_benchmark("Genetico", ejecutar_simulacion_genetica, mapa_id)
                     
                 print("\n[+] Benchmarks de los 3 mapas completados exitosamente")
+
+            case '10':
+                print("\n[*] Ejecutando Benchmark Estadístico completo BFS (3 Mapas)...")
+                for mapa_id in [1, 2, 3]:
+                    print(f"\n--- INICIANDO MAPA {mapa_id} ---")
+                    
+                    ejecutar_benchmark("BFS", ejecutar_simulacion_bfs, mapa_id)
+                print("\n[+] Benchmarks BFS de los 3 mapas completados exitosamente")
+
+            case '11':
+                print("\n[*] Ejecutando Benchmark Estadístico completo DFS (3 Mapas)...")
+                for mapa_id in [1, 2, 3]:
+                    print(f"\n--- INICIANDO MAPA {mapa_id} ---")
+                    
+                    ejecutar_benchmark("DFS", ejecutar_simulacion_dfs, mapa_id)
+                print("\n[+] Benchmarks DFS de los 3 mapas completados exitosamente")
             
             case '0':
                 print("\nSaliendo del simulador... ")

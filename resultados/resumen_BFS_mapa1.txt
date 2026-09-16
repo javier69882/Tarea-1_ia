@@ -1,0 +1,15 @@
+--- RESUMEN ESTADÍSTICO (BFS - Mapa 1) ---
+Iteraciones completadas con éxito: 200 de 200
+
+METRICAS DE RENDIMIENTO COMPUTACIONAL:
+- Tiempo total de ejecución: 3.22 segundos
+- Tiempo medio por simulación: 16.08 milisegundos
+
+METRICAS DE SUPERVIVENCIA:
+- Supervivencia media: 87.17%
+
+ESTADISTICOS DE TIEMPO (TURNOS):
+- Media: 44.02 turnos
+- Desviación estándar: 91.10
+- Valor mínimo: 17 turnos
+- Valor máximo: 448 turnos

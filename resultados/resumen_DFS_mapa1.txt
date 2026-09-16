@@ -1,0 +1,15 @@
+--- RESUMEN ESTADÍSTICO (DFS - Mapa 1) ---
+Iteraciones completadas con éxito: 200 de 200
+
+METRICAS DE RENDIMIENTO COMPUTACIONAL:
+- Tiempo total de ejecución: 0.77 segundos
+- Tiempo medio por simulación: 3.84 milisegundos
+
+METRICAS DE SUPERVIVENCIA:
+- Supervivencia media: 86.17%
+
+ESTADISTICOS DE TIEMPO (TURNOS):
+- Media: 40.27 turnos
+- Desviación estándar: 55.80
+- Valor mínimo: 20 turnos
+- Valor máximo: 428 turnos
