@@ -1,0 +1,15 @@
+--- RESUMEN ESTADÍSTICO (A-Estrella - Mapa 1) ---
+Iteraciones completadas con éxito: 200 de 200
+
+METRICAS DE RENDIMIENTO COMPUTACIONAL:
+- Tiempo total de ejecución: 1.59 segundos
+- Tiempo medio por simulación: 7.94 milisegundos
+
+METRICAS DE SUPERVIVENCIA:
+- Supervivencia media: 87.36%
+
+ESTADISTICOS DE TIEMPO (TURNOS):
+- Media: 38.18 turnos
+- Desviación estándar: 70.98
+- Valor mínimo: 16 turnos
+- Valor máximo: 444 turnos

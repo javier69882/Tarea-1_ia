@@ -1,0 +1,15 @@
+--- RESUMEN ESTADÍSTICO (Greedy - Mapa 3) ---
+Iteraciones completadas con éxito: 200 de 200
+
+METRICAS DE RENDIMIENTO COMPUTACIONAL:
+- Tiempo total de ejecución: 0.87 segundos
+- Tiempo medio por simulación: 4.34 milisegundos
+
+METRICAS DE SUPERVIVENCIA:
+- Supervivencia media: 93.29%
+
+ESTADISTICOS DE TIEMPO (TURNOS):
+- Media: 27.48 turnos
+- Desviación estándar: 9.04
+- Valor mínimo: 0 turnos
+- Valor máximo: 80 turnos

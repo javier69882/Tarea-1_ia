@@ -5,6 +5,8 @@ from simulacion.motor import ejecutar_simulacion
 from agentes.agente_bfs import AgenteBFS
 from agentes.agente_dfs import AgenteDFS
 from agentes.agente_genetico import AgenteGenetico
+from agentes.agente_a_star import AgenteAStar
+from agentes.agente_greedy import AgenteGreedy
 from entorno.grilla import Mapa
 
 def limpiar_pantalla():
@@ -91,6 +93,8 @@ def main():
         print("   9. Ejecutar Benchmark Estadístico Genético (200 iteraciones)")
         print("  10. Ejecutar Benchmark Estadístico BFS (200 iteraciones)")
         print("  11. Ejecutar Benchmark Estadístico DFS (200 iteraciones)")
+        print("  12. Ejecutar Benchmark Estadístico A* (200 iteraciones)")
+        print("  13. Ejecutar Benchmark Estadístico Greedy (200 iteraciones)")
         print("\n   0. Salir")
         print("="*40)
         
@@ -117,11 +121,14 @@ def main():
                 preguntar_visualizacion(historial)
             
             case '3':
-                print("\n[!] Ejecutando A*... (Pendiente de implementar)")
+                mapa_limpio = Mapa(tipo_mapa=tipo_mapa, filas=15, columnas=15)
+                historial = ejecutar_simulacion(mapa_limpio, AgenteAStar, "A-Estrella")
+                preguntar_visualizacion(historial)
             
             case '4':
-                print("\n[!] Ejecutando Greedy... (Pendiente de implementar)")
-            
+                mapa_limpio = Mapa(tipo_mapa=tipo_mapa, filas=15, columnas=15)
+                historial = ejecutar_simulacion(mapa_limpio, AgenteGreedy, "Greedy Best-First Search")
+                preguntar_visualizacion(historial)
             case '5':
                 mapa_limpio = Mapa(tipo_mapa=tipo_mapa, filas=15, columnas=15)
                 historial = ejecutar_simulacion(mapa_limpio, AgenteGenetico, "Genetico")
@@ -164,6 +171,20 @@ def main():
                     # Pasamos la clase AgenteDFS al benchmark
                     ejecutar_benchmark("DFS", AgenteDFS, mapa_id)
                 print("\n[+] Benchmarks DFS de los 3 mapas completados exitosamente")
+
+            case '12':
+                print("\n[*] Ejecutando Benchmark Estadístico completo A* (3 Mapas)...")
+                for mapa_id in [1, 2, 3]:
+                    print(f"\n--- INICIANDO MAPA {mapa_id} ---")
+                    ejecutar_benchmark("A-Estrella", AgenteAStar, mapa_id)
+                print("\n[+] Benchmarks A* de los 3 mapas completados exitosamente")
+
+            case '13':
+                print("\n[*] Ejecutando Benchmark Estadístico completo Greedy (3 Mapas)...")
+                for mapa_id in [1, 2, 3]:
+                    print(f"\n--- INICIANDO MAPA {mapa_id} ---")
+                    ejecutar_benchmark("Greedy", AgenteGreedy, mapa_id)
+                print("\n[+] Benchmarks Greedy de los 3 mapas completados exitosamente")
             
             case '0':
                 print("\nSaliendo del simulador... ")
